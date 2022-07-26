@@ -35,7 +35,8 @@ web site use Django platform
           from django.urls import path
           from . import views
           urlpatterns = [
-              path('',views.index)
+              path('',views.index, name = 'home'),
+              path('about', views.about, name ='about')
           ]
       </code>
      </pre></li>
@@ -46,7 +47,10 @@ web site use Django platform
      from django.shortcuts import render
           def index (request):
                return render (request,'main/index.html')
+          def about(request):
+               return render(request, 'main/about.html')     
      </code></pre></li>
+<li><code>Create file 'templates/main/base.html' in main</code></li>
 <li><code></code></li>
 <li><code></code></li>
 <li><code></code></li>
