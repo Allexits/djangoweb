@@ -34,9 +34,9 @@ web site use Django platform
      <code>
           from django.urls import path
           from . import views
-          url(patterns = [
+          urlpatterns = [
               path('',views.index)
-          ])
+          ]
       </code>
      </pre></li>
 <li><code>Create folder 'templates/main' in main</code></li>
