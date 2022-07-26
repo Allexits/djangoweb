@@ -6,7 +6,7 @@ web site use Django platform
 <li><code>django-admin startproject taskmanager</code></li>
 <li><code>cd taskmanager</code></li>
 <li><code>python manage.py runserver</code> - runserver (127.0.0.1:8000)</li>
-<li><code>python manage.py startapp main</code> - create main app</li>
+<li><code>python manage.py startapp main</code> - create main app
 <pre>taskmanager->settings.py write 'main'
      <code>
      INSTALLED_APPS = [
@@ -19,9 +19,25 @@ web site use Django platform
           'main'
       ]
       </code>
-</pre>
-<li><code></code></li>
-<li><code></code></li>
+</pre></li>
+<li><code>Create 'urls.py' in 'main'</code>
+     <pre>taskmanager->main->urls.py
+     <code>
+          from django.urls import path
+          from . import views
+          url(patterns = [
+              path('',views.index)
+          ])
+      </code>
+     </pre></li>
+<li><code>Create folder 'templates/main' in main</code></li>
+<li><code>Create file 'templates/main/index.html' in main</code></li>
+<li><code>Write in 'main/views.py'</code>
+     <pre><code>
+     from django.shortcuts import render
+          def index (request):
+               return render (request,'main/index.html')
+     </code></pre></li>
 <li><code></code></li>
 <li><code></code></li>
 <li><code></code></li>
