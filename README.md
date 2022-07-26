@@ -20,6 +20,15 @@ web site use Django platform
       ]
       </code>
 </pre></li>
+<li><code>Write in 'taskmanager/urls.py'</code>
+     <pre><code>
+     from django.contrib import admin
+     from django.urls import path,include
+     urlpatterns = [
+         path('admin/', admin.site.urls),
+         path('', include('main.urls')),
+     ]
+     </code></pre></li>
 <li><code>Create 'urls.py' in 'main'</code>
      <pre>taskmanager->main->urls.py
      <code>
