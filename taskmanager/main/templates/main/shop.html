@@ -1,8 +1,4 @@
 {% extends 'main/base.html' %}
-
-{% block title%}
-{{ title }}
-{% endblock %}
 {% block head %}
 <div class="container">
     <div class="row">
@@ -10,7 +6,13 @@
         <div class="position-sticky p-3">
             <p class="">Shops:</p>
           <ul class="nav flex-column" id="shops">
-            
+              {% for key in shops%}
+                <li class="nav-item">
+                
+                  <img src="{{key.img.url}}" alt="{{key.title}}" width="42" height="42">
+                  <a class="btn btn-lg btn-block" href="{{ key.get_absolute_url }}">{{key.title}}</a>
+                </li>
+              {%endfor%}  
           </ul>
           
         </div>
@@ -18,10 +20,29 @@
   
       <main class="col-md-9 ms-sm-auto px-md-4">
         <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="goods">
-  
-            </div>
+          <h3>{{cur_shop.title}}</h3>
         </div>
+        <div class="container">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="goods">
+            {%for key in products%}
+            <div class="col">
+              <div class="card shadow-sm">
+                <img class="img-thumbnail" src="{{key.img.url}}">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <h5 class="card-title">{{key.title}}</h5>
+                      <div class="bd-highlight">{{key.price}}</div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary add-to-cart" data-id="1:1">Add to Cart</button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            {%endfor%}
+         </div>
       </main>
   
     </div>

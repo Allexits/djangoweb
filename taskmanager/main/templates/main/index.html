@@ -1,10 +1,23 @@
 {% extends 'main/base.html' %}
 
-{% block title%}
-{{ title }}
-{% endblock %}
 {% block head %}
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal">Articles</h1>
+      <h1 class="display-4 fw-normal">Shops</h1>
     </div>
+{% endblock %}
+
+{% block main %}
+    <div class="container py-3">
+      {% for key in shops %}
+
+      <div class="media">
+        <img class=" align-self-center mr-4 d-flex" src="{{key.img.url}}" alt="{{key.title}}">
+        <div class="media-body">
+          <h5 class="mt-0">{{key.title}}</h5>
+          <p>{{key.desc|linebreaks}}</p>
+        </div>
+      </div>
+
+      {%endfor%}
+    </div>  
 {% endblock %}
