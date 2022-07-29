@@ -1,14 +1,11 @@
 {% extends 'main/base.html' %}
+{% load main_tags %}
 
-{% block head %}
-    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal">Shops</h1>
-    </div>
-{% endblock %}
 
 {% block main %}
     <div class="container py-3">
-      {% for key in shops %}
+      {% get_shops as shop %}
+      {% for key in shop %}
 
       <div class="media">
         <img class=" align-self-center mr-4 d-flex" src="{{key.img.url}}" alt="{{key.title}}">

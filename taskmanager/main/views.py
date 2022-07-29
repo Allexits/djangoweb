@@ -1,52 +1,46 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 
 from .models import *
-
-shops = Shops.objects.all().order_by('id')
-menu = [{'title':'Main','url_name':'home'},
-        {'title':'Shops','url_name':'shops'},
-        {'title':'Shoping cart','url_name':'cart'},
-        {'title':'About us','url_name':'about'},
-        {'title':'Login','url_name':'login'}]
+from django.core import serializers
 
 
 def index(request):
-    
+    page = Menu.objects.get(slug='home')
     context = {
-        'title':'Main',
-        'shops':shops,
-        'menu':menu
+        'page':page
         }
     return render(request, 'main/index.html',context = context)
 
 
 def about(request):
+    page = Menu.objects.get(slug='about')
     context = {
-        'title':'About',
-        'menu':menu
-    }
+        'page':page
+        }
     return render(request, 'main/about.html',context = context)
 
-def shop(request,id=1):
-    cur_shop = Shops.objects.filter(pk=id)
-    products = Products.objects.filter(category=id)
+def shop(request,page_slug=''):
+    page = Menu.objects.get(slug='shops')
+    if page_slug=='':
+        cur_shop = Shops.objects.order_by('pk').first()
+    else:
+        cur_shop = get_object_or_404(Shops,slug=page_slug)
+    products = Products.objects.filter(category=cur_shop.pk,is_active=1)
     context = {
-        'title':'Shops',
-        'shops':shops,
+        'page':page,
         'cur_shop':cur_shop,
         'products':products,
-        'menu':menu
+        'shop_sel':cur_shop.pk
     }
     return render(request, 'main/shop.html',context = context)
 
 
 def cart(request):
+    page = Menu.objects.get(slug='cart')
+    data = serializers.serialize("json", Products.objects.all())
     context = {
-        'title':'Shoping Cart',
-        'menu':menu
-    }
+        'page':page,
+        'data':data
+        }
     return render(request, 'main/cart.html',context = context)
 
-
-def login(request):
-    return redirect('admin')

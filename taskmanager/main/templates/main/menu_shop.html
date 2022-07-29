@@ -1,0 +1,12 @@
+<ul class="nav flex-column">
+    {% for key in shops %}
+            <li class="nav-item btn-group text-info">
+            <img src="{{key.img.url}}" alt="{{key.title}}" width="42" height="42">
+            {% if key.pk == shop_sel %}    
+            <a class=" btn btn-lg btn-block text-info text-start disabled" href="{{ key.get_absolute_url }}">{{key.title}}</a>
+            {% else%}
+            <a class=" btn btn-lg btn-block text-white text-start shadow-none" href="{{ key.get_absolute_url }}">{{key.title}}</a>
+            {% endif %}
+        </li>
+    {%endfor%}  
+</ul>

@@ -1,10 +1,56 @@
 {% extends 'main/base.html' %}
+{%  load static %}
 
-{% block title%}
-{{ title }}
+{% block main %}
+<div class="container-fluid">
+  <div class="row">
+      
+      <div class="col-4">
+          <form id="form">
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Name</label>
+                  <input type="text" class="form-control" id="form_name" required>
+                </div><br>
+              <div class="form-group">
+                <label for="form_email">Email</label>
+                <input type="email" class="form-control" id="form_email" required>
+      
+              </div><br>
+              <div class="form-group">
+                <label for="form_phone">Phone</label>
+                <input type="tel" class="form-control" id="form_phone"  required>
+              </div><br>
+              <div class="form-group">
+                  <label for="form_phone">Adress</label>
+                  <input type="text" class="form-control" id="form_adress" required>
+                </div><br>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary" id="hinddenBtn" hidden>Submit</button>
+                </div>
+          </form>
+      </div>
+      <div class="col-8 overflow-auto" style="height: 475px;" id="cart">
+
+      </div>
+  </div>
+  
+  <div class="row justify-content-end border p-4">
+      <div class="col-2">
+          <p>Total price: <span id="total_price"></span> грн.</p>
+      </div>
+      <div class="col-2">
+          <button type="button" id="sub_button" class="btn btn-primary">Submit</button>
+      </div> 
+  </div>
+      
+  </div>
+</div>
 {% endblock %}
-{% block head %}
-    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-      <h1 class="display-4 fw-normal">Articles</h1>
-    </div>
+
+{% block script %}
+<script>
+  var data = JSON.parse("{{data|escapejs}}");
+
+</script> 
+<script src="{% static 'main/js/cart.js' %}"></script>
 {% endblock %}

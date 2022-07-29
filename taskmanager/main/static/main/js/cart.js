@@ -1,34 +1,46 @@
-var cart = {};
-
-
-$.getJSON('goods.json',function(data){
-   
+$('document').ready(function(){
+    
     checkCart();
     showCart();
 
-    
+  
+   $('#sub_button').on('click',addToBase);
+});
 
-
-    function showCart(){
+function showCart(){
         if($.isEmptyObject(cart)){
             $('#cart').html('Cart is empty');
             $('#sub_button').prop('disabled', true);
         }else{
         var out='';
-        var oneGood='';
+        var oneGood={};
+        var newdata={};
         var total_price=0;    
+        
+        for(var k1 in data){
+            var a = data[k1]['pk'];
+            var b = data[k1]['fields'];
+            newdata[a] ={
+            'name': b['title'],
+            'cost': b['price'],
+            'image': b['img']
+           }
+           
+        }
+
         for(var str_id in cart){
             var key = str_id.split(':');
-            oneGood=data[key[0]]['goods'][key[1]];
+            
+            oneGood=newdata[key[1]];
             total_price+=oneGood.cost*cart[str_id];
            
                 out+= '<div class="row p-3">';
                 out+= '  <div class="col">';
-                out+= '     <img class="img-thumbnail float-left d-inline-flex p-2" src="'+oneGood.image+'" width="200px">';
+                out+= '     <img class="img-thumbnail float-left d-inline-flex p-2" src="/media/'+oneGood.image+'" width="200px">';
                 out+= '  </div>';
                 out+= '  <div class="col-4 p-4">';
                 out+= '      <h2>'+oneGood.name+'</h2>';
-                out+= '      <p>'+oneGood.cost+' РіСЂРЅ. * '+cart[str_id]+' = '+oneGood.cost*cart[str_id]+' РіСЂРЅ.</p>';
+                out+= '      <p>'+oneGood.cost+' грн. * '+cart[str_id]+' = '+oneGood.cost*cart[str_id]+' грн.</p>';
                 
                 out+= '   <button type="button" class="btn btn-outline-success btn-sm plusGoods" data-id="'+key[0]+':'+key[1]+'">+</button>';
                 out+= '   <button type="button" class="btn btn-outline-success btn-sm minusGoods" data-id="'+key[0]+':'+key[1]+'">-</button>';
@@ -38,22 +50,21 @@ $.getJSON('goods.json',function(data){
               
         }
         $('#cart').html(out);
-        $('#total_price').html(total_price);
-       
+        $('#total_price').html(total_price);   
         $('button.plusGoods').on('click',plusGoods);
         $('button.minusGoods').on('click',minusGoods);
         $('button.deleteGoods').on('click',deleteGoods);
         
     }
-    }
+}
     
-    function plusGoods(){
+function plusGoods(){
         var id_goods = $(this).attr('data-id');
         cart[id_goods]++;
         localStorage.setItem('cart',JSON.stringify(cart));
         showCart();
     }
-    function minusGoods(){
+function minusGoods(){
         var id_goods = $(this).attr('data-id');
         if(cart[id_goods]!=1){
         cart[id_goods]--;
@@ -61,7 +72,7 @@ $.getJSON('goods.json',function(data){
         showCart();
         }
     }
-    function deleteGoods(){
+function deleteGoods(){
         var id_goods = $(this).attr('data-id');
         
         delete cart[id_goods];
@@ -69,8 +80,8 @@ $.getJSON('goods.json',function(data){
         showCart();
         
     }
-    $('#sub_button').on('click',addToBase);
-    function addToBase(){
+    
+function addToBase(){
         var userdata={};
         var oneGood='';
         var total_price=0;
@@ -147,8 +158,7 @@ $.getJSON('goods.json',function(data){
                 
             }
             
-    }
-});
+    };
 
 
 

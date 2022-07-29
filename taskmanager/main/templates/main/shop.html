@@ -1,20 +1,18 @@
 {% extends 'main/base.html' %}
+{% load main_tags %}
+{%  load static %}
+
+{% block script %} 
+<script src="{% static 'main/js/shop.js' %}"></script>
+{% endblock %}
+
 {% block head %}
 <div class="container">
     <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 d-md-block bg-light sidebar collapse">
+      <nav id="sidebarMenu" class="col-md-3 d-md-block bg-secondary sidebar collapse">
         <div class="position-sticky p-3">
-            <p class="">Shops:</p>
-          <ul class="nav flex-column" id="shops">
-              {% for key in shops%}
-                <li class="nav-item">
-                
-                  <img src="{{key.img.url}}" alt="{{key.title}}" width="42" height="42">
-                  <a class="btn btn-lg btn-block" href="{{ key.get_absolute_url }}">{{key.title}}</a>
-                </li>
-              {%endfor%}  
-          </ul>
-          
+            <p class="text-white">Shops:</p>
+            {% show_shops shop_sel %}          
         </div>
       </nav>
   
@@ -35,7 +33,7 @@
                     </div>
                     <div class="d-flex justify-content-end">
                       <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary add-to-cart" data-id="1:1">Add to Cart</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary add-to-cart" data-id="{{cur_shop.pk}}:{{key.pk}}">Add to Cart</button>
                       </div>
                     </div>
                   </div>
